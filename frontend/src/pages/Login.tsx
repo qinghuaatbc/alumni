@@ -17,6 +17,19 @@ const Login: React.FC = () => {
     setError('');
   };
 
+  const loginAs = async (username: string, password: string) => {
+    setLoading(true);
+    try {
+      const res = await authApi.login({ username, password });
+      login(res.access_token, res.user);
+      navigate('/');
+    } catch {
+      setError(t('login_failed'));
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.username || !form.password) { setError(t('fill_all')); return; }
@@ -52,6 +65,12 @@ const Login: React.FC = () => {
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-white">华北电力大学无线871</h1>
           <p className="text-indigo-300 mt-2 text-sm">{t('sign_in_subtitle')}</p>
+          <p className="mt-3 text-sm bg-white/10 rounded-xl px-4 py-2 text-white/80 backdrop-blur-sm">
+            {lang === 'zh'
+              ? <>可用 <span className="font-bold text-white">guest / guest</span> 体验访问</>
+              : <>Try <span className="font-bold text-white">guest / guest</span> to explore</>
+            }
+          </p>
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 sm:p-8">
@@ -79,7 +98,36 @@ const Login: React.FC = () => {
               {loading ? t('signing_in') : t('sign_in')}
             </button>
           </form>
-          <p className="text-center text-gray-600 dark:text-gray-400 text-sm mt-6">
+          {/* Guest accounts */}
+          <div className="mt-5 pt-5 border-t border-gray-100 dark:border-gray-700">
+            <p className="text-xs text-gray-400 dark:text-gray-500 text-center mb-3">
+              {lang === 'zh' ? '体验账号（点击一键登录）' : 'Demo accounts (click to login)'}
+            </p>
+            <div className="flex gap-2">
+              <button onClick={() => loginAs('guest', 'guest')}
+                className="flex-1 flex items-center justify-between bg-gray-50 dark:bg-gray-700 hover:bg-indigo-50 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600 rounded-xl px-3 py-2.5 transition-colors group">
+                <div className="text-left">
+                  <p className="text-xs font-semibold text-gray-700 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">guest</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500">guest</p>
+                </div>
+                <span className="text-xs bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400 px-1.5 py-0.5 rounded-md">
+                  {lang === 'zh' ? '访客' : 'Guest'}
+                </span>
+              </button>
+              <button onClick={() => loginAs('admin', 'admin')}
+                className="flex-1 flex items-center justify-between bg-gray-50 dark:bg-gray-700 hover:bg-yellow-50 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600 rounded-xl px-3 py-2.5 transition-colors group">
+                <div className="text-left">
+                  <p className="text-xs font-semibold text-gray-700 dark:text-gray-200 group-hover:text-yellow-600 dark:group-hover:text-yellow-400">admin</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500">admin</p>
+                </div>
+                <span className="text-xs bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-400 px-1.5 py-0.5 rounded-md font-medium">
+                  {lang === 'zh' ? '管理员' : 'Admin'}
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <p className="text-center text-gray-600 dark:text-gray-400 text-sm mt-4">
             {t('no_account')}{' '}
             <Link to="/register" className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 font-medium">{t('go_register')}</Link>
           </p>
