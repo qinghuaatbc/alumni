@@ -48,7 +48,8 @@ export class LibraryController {
     if (!ALLOWED_TYPES.includes(ext)) {
       throw new BadRequestException(`不支持的文件类型，仅支持：${ALLOWED_TYPES.join(', ')}`);
     }
-    const url = `http://localhost:3000/uploads/books/${file.filename}`;
+    const serverHost = req.headers.host || 'localhost:3000';
+    const url = `${req.protocol || 'http'}://${serverHost}/uploads/books/${file.filename}`;
     return { url, filename: file.originalname, size: file.size };
   }
 

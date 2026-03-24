@@ -1,5 +1,5 @@
-import { Controller, Get, Query, Res } from '@nestjs/common';
-import type { Response } from 'express';
+import { Controller, Get, Query, Req, Res } from '@nestjs/common';
+import type { Request, Response } from 'express';
 import * as https from 'https';
 import * as http from 'http';
 
@@ -33,7 +33,7 @@ function fetchUrl(url: string): Promise<{ data: Buffer; contentType: string }> {
 export class ProxyController {
 
   @Get('m3u8')
-  async proxyM3u8(@Query('url') url: string, @Res() res: Response) {
+  async proxyM3u8(@Query('url') url: string, @Req() req: Request, @Res() res: Response) {
     if (!url) return res.status(400).json({ error: 'url required' });
     try {
       const { data } = await fetchUrl(url);
@@ -41,6 +41,8 @@ export class ProxyController {
 
       const base = new URL(url);
       const basePath = base.origin + base.pathname.replace(/\/[^/]*$/, '/');
+      const serverHost = req.headers.host || 'localhost:3000';
+      const serverOrigin = `${req.protocol || 'http'}://${serverHost}`;
 
       content = content.split('\n').map(line => {
         const t = line.trim();
@@ -52,9 +54,9 @@ export class ProxyController {
         }
 
         if (abs.includes('.m3u8')) {
-          return `http://localhost:3000/proxy/m3u8?url=${encodeURIComponent(abs)}`;
+          return `${serverOrigin}/proxy/m3u8?url=${encodeURIComponent(abs)}`;
         }
-        return `http://localhost:3000/proxy/seg?url=${encodeURIComponent(abs)}`;
+        return `${serverOrigin}/proxy/seg?url=${encodeURIComponent(abs)}`;
       }).join('\n');
 
       res.set('Content-Type', 'application/vnd.apple.mpegurl');
