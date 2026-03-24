@@ -33,7 +33,7 @@ const CITY_POSITIONS: Record<string, { x: number; y: number }> = {
 
 const MapView: React.FC = () => {
   const [stats, setStats] = useState<CityData[]>([]);
-  const [allAlumni, setAllAlumni] = useState<any[]>([]);
+  const [_allAlumni, setAllAlumni] = useState<any[]>([]);
   const [selected, setSelected] = useState<CityData | null>(null);
   const [loading, setLoading] = useState(true);
 

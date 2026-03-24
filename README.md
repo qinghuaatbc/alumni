@@ -11,7 +11,7 @@
 
 ---
 
-## 安装步骤
+## 本地开发
 
 ### 1. 克隆项目
 
@@ -20,53 +20,104 @@ git clone https://github.com/qinghuaatbc/alumni.git
 cd alumni
 ```
 
-### 2. 安装后端依赖
+### 2. 安装依赖
 
 ```bash
-cd backend
-npm install
-cd ..
+cd backend && npm install && cd ..
+cd frontend && npm install && cd ..
 ```
 
-### 3. 安装前端依赖
+### 3. 启动（开发模式）
 
-```bash
-cd frontend
-npm install
-cd ..
-```
-
----
-
-## 启动
-
-### 方式一：一键启动（推荐）
-
-```bash
-chmod +x start.sh
-./start.sh
-```
-
-### 方式二：分别启动
-
-**后端**（新终端窗口）：
-
+**后端**（新终端）：
 ```bash
 cd backend
 npm run start:dev
 ```
 
-**前端**（另一个终端窗口）：
-
+**前端**（另一个终端）：
 ```bash
 cd frontend
 npm run dev
 ```
 
-启动后访问：
+访问 http://localhost:5173
 
-- 前端：http://localhost:5173
-- 后端 API：http://localhost:3000
+---
+
+## 生产部署（单服务器）
+
+前端编译后由 NestJS 直接托管，只需启动一个进程，访问一个端口。
+
+### 第一步：安装依赖
+
+```bash
+cd backend && npm install && cd ..
+cd frontend && npm install && cd ..
+```
+
+### 第二步：编译前端
+
+```bash
+cd frontend
+npm run build
+# 产物输出到 frontend/dist/
+```
+
+### 第三步：编译并启动后端
+
+```bash
+cd backend
+npm run build
+node dist/main.js
+```
+
+启动后访问 http://localhost:3000 即可（前端和 API 均由此端口提供）。
+
+### 第四步：用 PM2 守护进程（推荐）
+
+```bash
+npm install -g pm2
+
+cd backend
+pm2 start dist/main.js --name alumni
+pm2 save
+pm2 startup   # 开机自启
+```
+
+### 第五步：Nginx 反向代理（可选，配置域名/HTTPS）
+
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_buffering off;
+    }
+}
+```
+
+```bash
+sudo certbot --nginx -d your-domain.com   # 配置 HTTPS
+```
+
+---
+
+## 更新部署
+
+```bash
+git pull
+
+cd frontend && npm run build && cd ..
+cd backend && npm run build && cd ..
+
+pm2 restart alumni
+```
 
 ---
 
@@ -81,8 +132,6 @@ npm run dev
 ---
 
 ## 初始化演示数据（可选）
-
-项目包含两个数据脚本，可导入演示同学和书籍数据：
 
 ```bash
 cd backend
@@ -100,7 +149,7 @@ node -r ts-node/register seed-books.ts
 
 ```
 alumni/
-├── backend/          # NestJS 后端
+├── backend/          # NestJS 后端（同时托管前端静态文件）
 │   ├── src/
 │   │   ├── alumni/       # 同学档案
 │   │   ├── auth/         # JWT 登录认证
@@ -113,13 +162,13 @@ alumni/
 │   │   └── users/        # 用户管理
 │   └── uploads/          # 上传文件存储目录
 ├── frontend/         # React 前端
+│   ├── dist/             # 生产构建产物（npm run build 生成）
 │   └── src/
 │       ├── api/          # API 请求封装
 │       ├── components/   # 公共组件
 │       ├── contexts/     # 全局状态（Auth、Settings）
 │       ├── pages/        # 页面组件
 │       └── i18n.ts       # 中英文翻译
-├── start.sh          # 一键启动脚本
 └── README.md
 ```
 
@@ -148,6 +197,7 @@ alumni/
 - [TypeORM](https://typeorm.io/) + SQLite（better-sqlite3）
 - JWT 认证（passport-jwt）
 - Multer 文件上传
+- `@nestjs/serve-static`（托管前端静态文件）
 
 **前端**
 - [React](https://react.dev/) 18 + TypeScript

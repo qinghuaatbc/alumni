@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { AlumniModule } from './alumni/alumni.module';
@@ -20,6 +22,9 @@ import { Photo } from './photos/photo.entity';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), '..', 'frontend', 'dist'),
+    }),
     TypeOrmModule.forRoot({
       type: 'better-sqlite3',
       database: './alumni.db',

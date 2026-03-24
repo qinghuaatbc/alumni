@@ -4,7 +4,7 @@ import { tvApi } from '../api/tv';
 import type { TvChannel } from '../api/tv';
 import { useAuth } from '../contexts/AuthContext';
 
-const PROXY = 'http://localhost:3000/proxy/m3u8?url=';
+const PROXY = (import.meta.env.VITE_PROXY_BASE_URL ?? 'http://localhost:3000') + '/proxy/m3u8?url=';
 const proxyUrl = (s: string) => PROXY + encodeURIComponent(s);
 
 const CATEGORIES = ['全部', '央视', '卫视', '地方', '其他'];
