@@ -53,8 +53,8 @@ const Album: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">📸 班级相册</h1>
-          <p className="text-gray-500 mt-1">珍藏校园美好时光</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">📸 班级相册</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">珍藏校园美好时光</p>
         </div>
         <button
           onClick={() => setShowUpload(true)}
@@ -73,12 +73,12 @@ const Album: React.FC = () => {
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all ${
               selectedAlbum === a.albumName
                 ? 'bg-indigo-600 text-white border-indigo-600'
-                : 'bg-white text-gray-700 border-gray-200 hover:border-indigo-300'
+                : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-indigo-300'
             }`}
           >
             <img src={a.cover} alt="" className="w-6 h-6 rounded object-cover" onError={e => { (e.target as HTMLImageElement).style.display='none'; }} />
             <span>{a.albumName}</span>
-            <span className={`text-xs px-1.5 py-0.5 rounded-full ${selectedAlbum === a.albumName ? 'bg-indigo-500' : 'bg-gray-100 text-gray-500'}`}>{a.count}</span>
+            <span className={`text-xs px-1.5 py-0.5 rounded-full ${selectedAlbum === a.albumName ? 'bg-indigo-500' : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'}`}>{a.count}</span>
           </button>
         ))}
       </div>
@@ -89,7 +89,7 @@ const Album: React.FC = () => {
       ) : (
         <div className="columns-2 sm:columns-3 md:columns-4 gap-3 space-y-3">
           {photos.map(p => (
-            <div key={p.id} className="break-inside-avoid relative group rounded-xl overflow-hidden bg-gray-100">
+            <div key={p.id} className="break-inside-avoid relative group rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-700">
               <img
                 src={p.url}
                 alt={p.caption || ''}
@@ -136,22 +136,22 @@ const Album: React.FC = () => {
       {/* Upload modal */}
       {showUpload && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">上传照片</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-md shadow-xl">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">上传照片</h3>
             <div className="space-y-3">
               <input type="text" placeholder="图片URL *" value={form.url} onChange={e => setForm({ ...form, url: e.target.value })}
-                className="w-full border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                className="w-full border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:bg-gray-700 dark:text-white" />
               <input type="text" placeholder="图片描述" value={form.caption} onChange={e => setForm({ ...form, caption: e.target.value })}
-                className="w-full border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                className="w-full border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:bg-gray-700 dark:text-white" />
               <input type="text" placeholder="相册名称（如：2017届毕业典礼）" value={form.albumName} onChange={e => setForm({ ...form, albumName: e.target.value })}
-                className="w-full border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                className="w-full border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:bg-gray-700 dark:text-white" />
               <input type="text" placeholder="班级（如：计算机科学2013级1班）" value={form.className} onChange={e => setForm({ ...form, className: e.target.value })}
-                className="w-full border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                className="w-full border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:bg-gray-700 dark:text-white" />
               <input type="date" placeholder="拍摄日期" value={form.takenAt} onChange={e => setForm({ ...form, takenAt: e.target.value })}
-                className="w-full border border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                className="w-full border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:bg-gray-700 dark:text-white" />
             </div>
             <div className="flex gap-3 mt-5">
-              <button onClick={() => setShowUpload(false)} className="flex-1 border border-gray-300 text-gray-600 py-2 rounded-xl text-sm">取消</button>
+              <button onClick={() => setShowUpload(false)} className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 py-2 rounded-xl text-sm">取消</button>
               <button onClick={handleUpload} disabled={!form.url.trim() || uploading}
                 className="flex-1 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 text-white py-2 rounded-xl text-sm font-medium">
                 {uploading ? '上传中...' : '上传'}

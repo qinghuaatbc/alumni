@@ -8,11 +8,11 @@ import { commentsApi } from '../api/comments';
 const InfoRow: React.FC<{ label: string; value?: string | number | null; icon?: React.ReactNode }> = ({ label, value, icon }) => {
   if (!value) return null;
   return (
-    <div className="flex items-start space-x-3 py-3 border-b border-gray-100 last:border-0">
+    <div className="flex items-start space-x-3 py-3 border-b border-gray-100 dark:border-gray-700 last:border-0">
       {icon && <div className="text-indigo-500 mt-0.5 flex-shrink-0">{icon}</div>}
       <div>
-        <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">{label}</p>
-        <p className="text-gray-800 font-medium mt-0.5">{value}</p>
+        <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">{label}</p>
+        <p className="text-gray-800 dark:text-gray-200 font-medium mt-0.5">{value}</p>
       </div>
     </div>
   );
@@ -95,8 +95,8 @@ const AlumniDetail: React.FC = () => {
   if (error || !profile) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-20 text-center">
-        <h2 className="text-xl font-semibold text-gray-700">Profile not found</h2>
-        <Link to="/" className="text-indigo-600 hover:underline mt-4 inline-block">Back to Directory</Link>
+        <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300">Profile not found</h2>
+        <Link to="/" className="text-indigo-600 dark:text-indigo-400 hover:underline mt-4 inline-block">Back to Directory</Link>
       </div>
     );
   }
@@ -106,14 +106,14 @@ const AlumniDetail: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Back */}
-      <Link to="/" className="inline-flex items-center text-indigo-600 hover:text-indigo-800 text-sm font-medium mb-6 group">
+      <Link to="/" className="inline-flex items-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 text-sm font-medium mb-6 group">
         <svg className="w-4 h-4 mr-1.5 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
         </svg>
         Back to Directory
       </Link>
 
-      <div className="bg-white rounded-2xl shadow-md overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden">
         {/* Header banner */}
         <div className="bg-gradient-to-r from-indigo-600 to-blue-600 h-40 relative">
           <div className="absolute bottom-0 left-8 translate-y-1/2">
@@ -164,12 +164,12 @@ const AlumniDetail: React.FC = () => {
         <div className="pt-20 px-8 pb-8">
           <div className="flex items-start justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">{profile.name}</h1>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{profile.name}</h1>
               {profile.profession && (
-                <p className="text-indigo-600 font-medium mt-1">{profile.profession}</p>
+                <p className="text-indigo-600 dark:text-indigo-400 font-medium mt-1">{profile.profession}</p>
               )}
               {profile.company && (
-                <p className="text-gray-500 text-sm mt-0.5">{profile.company}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm mt-0.5">{profile.company}</p>
               )}
             </div>
             <div className="flex gap-2 flex-wrap">
@@ -179,7 +179,7 @@ const AlumniDetail: React.FC = () => {
                 </span>
               )}
               {profile.graduationYear && (
-                <span className="bg-gray-100 text-gray-600 text-sm font-medium px-3 py-1 rounded-full">
+                <span className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-sm font-medium px-3 py-1 rounded-full">
                   Class of {profile.graduationYear}
                 </span>
               )}
@@ -192,22 +192,22 @@ const AlumniDetail: React.FC = () => {
           </div>
 
           {profile.bio && (
-            <div className="mt-6 bg-gray-50 rounded-xl p-4">
-              <p className="text-gray-600 leading-relaxed">{profile.bio}</p>
+            <div className="mt-6 bg-gray-50 dark:bg-gray-900 rounded-xl p-4">
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{profile.bio}</p>
             </div>
           )}
 
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Education */}
             <div>
-              <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center space-x-2">
+              <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4 flex items-center space-x-2">
                 <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path d="M12 14l9-5-9-5-9 5 9 5z" />
                   <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                 </svg>
                 <span>Education</span>
               </h2>
-              <div className="bg-gray-50 rounded-xl px-4">
+              <div className="bg-gray-50 dark:bg-gray-900 rounded-xl px-4">
                 <InfoRow label="School" value={profile.school} />
                 <InfoRow label="Class" value={profile.className} />
                 <InfoRow label="Student ID" value={profile.studentId} />
@@ -218,13 +218,13 @@ const AlumniDetail: React.FC = () => {
 
             {/* Career */}
             <div>
-              <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center space-x-2">
+              <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4 flex items-center space-x-2">
                 <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
                 <span>Career</span>
               </h2>
-              <div className="bg-gray-50 rounded-xl px-4">
+              <div className="bg-gray-50 dark:bg-gray-900 rounded-xl px-4">
                 <InfoRow label="Company" value={profile.company} />
                 <InfoRow label="Profession" value={profile.profession} />
                 <InfoRow label="City" value={profile.city} />
@@ -233,20 +233,20 @@ const AlumniDetail: React.FC = () => {
 
             {/* Contact */}
             <div className="md:col-span-2">
-              <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center space-x-2">
+              <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4 flex items-center space-x-2">
                 <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
                 <span>Contact</span>
               </h2>
-              <div className="bg-gray-50 rounded-xl px-4">
+              <div className="bg-gray-50 dark:bg-gray-900 rounded-xl px-4">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-0">
                   {profile.email && <InfoRow label="Email" value={profile.email} />}
                   {profile.phone && <InfoRow label="Phone" value={profile.phone} />}
                   {profile.wechat && <InfoRow label="WeChat" value={profile.wechat} />}
                 </div>
                 {!profile.email && !profile.phone && !profile.wechat && (
-                  <p className="text-gray-400 text-sm py-3">No contact information shared</p>
+                  <p className="text-gray-400 dark:text-gray-500 text-sm py-3">No contact information shared</p>
                 )}
               </div>
             </div>
@@ -255,8 +255,8 @@ const AlumniDetail: React.FC = () => {
       </div>
 
       {/* Comments section */}
-      <div className="mt-6 bg-white rounded-2xl shadow-md p-6">
-        <h2 className="text-lg font-bold text-gray-900 mb-4">💬 留言板 ({comments.length})</h2>
+      <div className="mt-6 bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6">
+        <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">💬 留言板 ({comments.length})</h2>
         {/* Post comment */}
         <div className="flex gap-3 mb-6">
           <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-sm flex-shrink-0">
@@ -269,7 +269,7 @@ const AlumniDetail: React.FC = () => {
               onChange={e => setCommentInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handlePostComment()}
               placeholder="留下你的祝福或留言..."
-              className="flex-1 border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="flex-1 border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:bg-gray-700 dark:text-white"
             />
             <button
               onClick={handlePostComment}
@@ -283,7 +283,7 @@ const AlumniDetail: React.FC = () => {
 
         {/* Comment list */}
         {comments.length === 0 ? (
-          <p className="text-center text-gray-400 text-sm py-4">暂无留言，来第一个留言吧！</p>
+          <p className="text-center text-gray-400 dark:text-gray-500 text-sm py-4">暂无留言，来第一个留言吧！</p>
         ) : (
           <div className="space-y-4">
             {comments.map(c => (
@@ -293,7 +293,7 @@ const AlumniDetail: React.FC = () => {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-sm text-gray-900">{c.author?.username}</span>
+                    <span className="font-medium text-sm text-gray-900 dark:text-gray-100">{c.author?.username}</span>
                     <div className="flex items-center gap-2">
                       <span className="text-xs text-gray-400">{new Date(c.createdAt).toLocaleDateString('zh-CN')}</span>
                       {(c.authorId === user?.id || isAdmin) && (
@@ -301,7 +301,7 @@ const AlumniDetail: React.FC = () => {
                       )}
                     </div>
                   </div>
-                  <p className="text-sm text-gray-700 mt-0.5">{c.content}</p>
+                  <p className="text-sm text-gray-700 dark:text-gray-300 mt-0.5">{c.content}</p>
                 </div>
               </div>
             ))}

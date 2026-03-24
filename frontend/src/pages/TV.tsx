@@ -118,8 +118,8 @@ const TV: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 py-6">
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">📺 电视厅</h1>
-          <p className="text-gray-500 mt-1">国内知名电视台直播</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">📺 电视厅</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">国内知名电视台直播</p>
         </div>
         {isAdmin && (
           <button onClick={openAdd}
@@ -217,7 +217,7 @@ const TV: React.FC = () => {
               <div key={ch.id} className="relative group">
                 <button onClick={() => playChannel(ch)}
                   className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all ${
-                    current?.id === ch.id ? 'bg-indigo-600 text-white shadow-md' : 'bg-white hover:bg-gray-50 border border-gray-100'
+                    current?.id === ch.id ? 'bg-indigo-600 text-white shadow-md' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-100 dark:border-gray-700'
                   }`}
                 >
                   {ch.logo ? (
@@ -263,53 +263,53 @@ const TV: React.FC = () => {
       {/* Admin Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl w-full max-w-md">
             <div className="p-6">
-              <h2 className="text-xl font-bold mb-5">{editing ? '编辑频道' : '添加频道'}</h2>
+              <h2 className="text-xl font-bold mb-5 dark:text-gray-100">{editing ? '编辑频道' : '添加频道'}</h2>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">频道名称 *</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">频道名称 *</label>
                   <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="如：CCTV-1 综合" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">分类</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">分类</label>
                   <select value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                     {CATEGORIES.filter(c => c !== '全部').map(c => (
                       <option key={c} value={c}>{c}</option>
                     ))}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">直播流地址 * <span className="text-gray-400 font-normal">(M3U8 URL)</span></label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">直播流地址 * <span className="text-gray-400 font-normal">(M3U8 URL)</span></label>
                   <input value={form.stream} onChange={e => setForm(f => ({ ...f, stream: e.target.value }))}
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono"
                     placeholder="https://example.com/live/channel.m3u8" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">台标图片 URL <span className="text-gray-400 font-normal">(可选)</span></label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">台标图片 URL <span className="text-gray-400 font-normal">(可选)</span></label>
                   <input value={form.logo} onChange={e => setForm(f => ({ ...f, logo: e.target.value }))}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="https://example.com/logo.png" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">官网地址 <span className="text-gray-400 font-normal">(可选)</span></label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">官网地址 <span className="text-gray-400 font-normal">(可选)</span></label>
                   <input value={form.website} onChange={e => setForm(f => ({ ...f, website: e.target.value }))}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="https://tv.cctv.com/" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">排序 <span className="text-gray-400 font-normal">(数字越小越靠前)</span></label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">排序 <span className="text-gray-400 font-normal">(数字越小越靠前)</span></label>
                   <input type="number" value={form.sortOrder} onChange={e => setForm(f => ({ ...f, sortOrder: Number(e.target.value) }))}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="0" />
                 </div>
               </div>
               <div className="flex gap-3 mt-6">
                 <button onClick={() => setShowModal(false)}
-                  className="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg text-sm font-medium hover:bg-gray-50">
+                  className="flex-1 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 rounded-lg text-sm font-medium hover:bg-gray-50">
                   取消
                 </button>
                 <button onClick={handleSave} disabled={saving || !form.name.trim() || !form.stream.trim()}

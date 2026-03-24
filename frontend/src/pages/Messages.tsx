@@ -63,11 +63,11 @@ const Messages: React.FC = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-6">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">💬 私信</h1>
-      <div className="flex gap-4 h-[600px] bg-white rounded-2xl shadow overflow-hidden">
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">💬 私信</h1>
+      <div className="flex gap-4 h-[600px] bg-white dark:bg-gray-800 rounded-2xl shadow overflow-hidden">
         {/* Sidebar */}
-        <div className="w-72 border-r border-gray-100 flex flex-col">
-          <div className="p-4 border-b border-gray-100 font-semibold text-gray-700">会话列表</div>
+        <div className="w-72 border-r border-gray-100 dark:border-gray-700 flex flex-col">
+          <div className="p-4 border-b border-gray-100 dark:border-gray-700 font-semibold text-gray-700 dark:text-gray-300">会话列表</div>
           <div className="flex-1 overflow-y-auto">
             {loading ? (
               <p className="text-center text-gray-400 mt-8 text-sm">加载中...</p>
@@ -78,14 +78,14 @@ const Messages: React.FC = () => {
                 <div
                   key={c.user?.id}
                   onClick={() => navigate(`/messages/${c.user?.id}`)}
-                  className={`flex items-center gap-3 p-4 cursor-pointer hover:bg-gray-50 border-b border-gray-50 ${userId === String(c.user?.id) ? 'bg-indigo-50' : ''}`}
+                  className={`flex items-center gap-3 p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-50 dark:border-gray-700 ${userId === String(c.user?.id) ? 'bg-indigo-50' : ''}`}
                 >
                   <div className="w-10 h-10 rounded-full bg-indigo-200 flex items-center justify-center text-indigo-700 font-bold flex-shrink-0">
                     {c.user?.username?.[0]?.toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-center">
-                      <p className="font-medium text-sm text-gray-900 truncate">{c.user?.username}</p>
+                      <p className="font-medium text-sm text-gray-900 dark:text-gray-100 truncate">{c.user?.username}</p>
                       {c.unread > 0 && (
                         <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0">{c.unread}</span>
                       )}
@@ -97,9 +97,9 @@ const Messages: React.FC = () => {
             )}
           </div>
           {/* Start new conversation */}
-          <div className="p-3 border-t border-gray-100">
+          <div className="p-3 border-t border-gray-100 dark:border-gray-700">
             <select
-              className="w-full text-sm border border-gray-200 rounded-lg px-2 py-1.5 text-gray-600"
+              className="w-full text-sm border border-gray-200 dark:border-gray-600 rounded-lg px-2 py-1.5 text-gray-600 dark:text-gray-400 dark:bg-gray-700 dark:text-white"
               onChange={e => { if (e.target.value) navigate(`/messages/${e.target.value}`); }}
               defaultValue=""
             >
@@ -116,7 +116,7 @@ const Messages: React.FC = () => {
         {/* Chat area */}
         {userId ? (
           <div className="flex-1 flex flex-col">
-            <div className="p-4 border-b border-gray-100 font-semibold text-gray-700">
+            <div className="p-4 border-b border-gray-100 dark:border-gray-700 font-semibold text-gray-700 dark:text-gray-300">
               {selectedUser ? `与 ${selectedUser.username} 的对话` : '对话'}
             </div>
             <div className="flex-1 overflow-y-auto p-4 space-y-3">
@@ -124,7 +124,7 @@ const Messages: React.FC = () => {
                 const isMe = m.fromId === user?.id;
                 return (
                   <div key={m.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl text-sm ${isMe ? 'bg-indigo-600 text-white rounded-br-sm' : 'bg-gray-100 text-gray-800 rounded-bl-sm'}`}>
+                    <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl text-sm ${isMe ? 'bg-indigo-600 text-white rounded-br-sm' : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-bl-sm'}`}>
                       {m.content}
                       <p className={`text-xs mt-1 ${isMe ? 'text-indigo-200' : 'text-gray-400'}`}>
                         {new Date(m.createdAt).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}
@@ -135,14 +135,14 @@ const Messages: React.FC = () => {
               })}
               <div ref={bottomRef} />
             </div>
-            <div className="p-4 border-t border-gray-100 flex gap-2">
+            <div className="p-4 border-t border-gray-100 dark:border-gray-700 flex gap-2">
               <input
                 type="text"
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleSend()}
                 placeholder="输入消息..."
-                className="flex-1 border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                className="flex-1 border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:bg-gray-700 dark:text-white"
               />
               <button
                 onClick={handleSend}

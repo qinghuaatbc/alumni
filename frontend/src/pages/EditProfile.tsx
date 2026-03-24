@@ -18,7 +18,7 @@ const InputField: React.FC<{
   max?: number;
 }> = ({ label, name, value, onChange, type = 'text', placeholder, required, min, max }) => (
   <div>
-    <label className="block text-sm font-medium text-gray-700 mb-1.5">
+    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
       {label} {required && <span className="text-red-500">*</span>}
     </label>
     <input
@@ -30,7 +30,7 @@ const InputField: React.FC<{
       required={required}
       min={min}
       max={max}
-      className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-sm"
+      className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-sm dark:bg-gray-700 dark:text-white"
     />
   </div>
 );
@@ -163,8 +163,8 @@ const EditProfile: React.FC = () => {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">{existingProfileId ? 'Edit Profile' : 'Create Profile'}</h1>
-        <p className="text-gray-500 text-sm mt-1">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{existingProfileId ? 'Edit Profile' : 'Create Profile'}</h1>
+        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
           {existingProfileId ? 'Update your alumni profile information' : 'Complete your profile to appear in the alumni directory'}
         </p>
       </div>
@@ -183,18 +183,18 @@ const EditProfile: React.FC = () => {
         )}
 
         {/* Personal info */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-base font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-100">Personal Information</h2>
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+          <h2 className="text-base font-semibold text-gray-800 dark:text-gray-200 mb-4 pb-2 border-b border-gray-100 dark:border-gray-700">Personal Information</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <InputField label="Full Name" name="name" value={form.name} onChange={handleChange} placeholder="Your full name" required />
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Gender</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Gender</label>
               <select
                 name="gender"
                 value={form.gender}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
+                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm dark:bg-gray-700 dark:text-white"
               >
                 <option value="">-- Select Gender --</option>
                 <option value="male">Male</option>
@@ -207,22 +207,22 @@ const EditProfile: React.FC = () => {
             <InputField label="Avatar URL" name="avatar" value={form.avatar} onChange={handleChange} placeholder="https://..." />
 
             <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Bio</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Bio</label>
               <textarea
                 name="bio"
                 value={form.bio}
                 onChange={handleChange}
                 placeholder="Tell your classmates about yourself..."
                 rows={3}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none text-sm"
+                className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none text-sm dark:bg-gray-700 dark:text-white"
               />
             </div>
           </div>
         </div>
 
         {/* Education */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-base font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-100">Education</h2>
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+          <h2 className="text-base font-semibold text-gray-800 dark:text-gray-200 mb-4 pb-2 border-b border-gray-100 dark:border-gray-700">Education</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <InputField label="School" name="school" value={form.school} onChange={handleChange} placeholder="Your school name" />
             <InputField label="Class Name" name="className" value={form.className} onChange={handleChange} placeholder="e.g. Class 2018-A" />
@@ -234,8 +234,8 @@ const EditProfile: React.FC = () => {
         </div>
 
         {/* Career */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-base font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-100">Career & Location</h2>
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+          <h2 className="text-base font-semibold text-gray-800 dark:text-gray-200 mb-4 pb-2 border-b border-gray-100 dark:border-gray-700">Career & Location</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <InputField label="Company" name="company" value={form.company} onChange={handleChange} placeholder="Where do you work?" />
             <InputField label="Profession / Title" name="profession" value={form.profession} onChange={handleChange} placeholder="Your job title or field" />
@@ -244,9 +244,9 @@ const EditProfile: React.FC = () => {
         </div>
 
         {/* Contact */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-          <h2 className="text-base font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-100">Contact Information</h2>
-          <p className="text-xs text-gray-500 mb-4">Only shared with authenticated members of the directory</p>
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
+          <h2 className="text-base font-semibold text-gray-800 dark:text-gray-200 mb-4 pb-2 border-b border-gray-100 dark:border-gray-700">Contact Information</h2>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">Only shared with authenticated members of the directory</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <InputField label="Email" name="email" value={form.email} onChange={handleChange} type="email" placeholder="contact@email.com" />
             <InputField label="Phone" name="phone" value={form.phone} onChange={handleChange} placeholder="+1 234 567 8900" />
@@ -259,7 +259,7 @@ const EditProfile: React.FC = () => {
           <button
             type="button"
             onClick={() => navigate('/profile')}
-            className="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 font-medium transition-colors"
+            className="px-6 py-2.5 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 font-medium transition-colors"
           >
             Cancel
           </button>
