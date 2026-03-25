@@ -10,15 +10,16 @@ build/
 *.db-shm
 *.db-wal
 
-# Uploads
-backend/uploads/
-
 # Environment
 .env
 .env.local
 
 # Logs
 *.log
+
+# Uploads - large files (>100MB cannot be pushed to GitHub)
+backend/uploads/books/1774385323303-423731.pdf
+backend/uploads/books/1774385464158-957040.pdf
 
 # OS
 .DS_Store
